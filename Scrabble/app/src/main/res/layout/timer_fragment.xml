@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linerLayoutUp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <cn.iwgang.countdownview.CountdownView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/countdown1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:rotation="-180"
+            app:isHideTimeBackground="true"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:isTimeTextBold="true"
+            app:suffixGravity="bottom"
+            app:suffixMinute="m"
+            app:suffixSecond="s"
+            app:suffixTextColor="#000000"
+            app:suffixTextSize="32sp"
+            app:timeTextColor="#000000"
+            app:timeTextSize="72sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/pauseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/start" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linerLayoutDown"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <cn.iwgang.countdownview.CountdownView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/countdown2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:isHideTimeBackground="true"
+            app:isShowMinute="true"
+            app:isShowSecond="true"
+            app:isTimeTextBold="true"
+            app:suffixGravity="bottom"
+            app:suffixMinute="m"
+            app:suffixSecond="s"
+            app:suffixTextColor="#000000"
+            app:suffixTextSize="32sp"
+            app:timeTextColor="#000000"
+            app:timeTextSize="72sp" />
+    </LinearLayout>
+
+
+</LinearLayout>

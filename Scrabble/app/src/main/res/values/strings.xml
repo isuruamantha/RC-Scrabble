@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Scrabble</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!--Shared preferences-->
+    <string name="sharedPref">sharedPref</string>
+
+    <!--Timer fragment-->
+    <string name="pause">Pause</string>
+    <string name="start">Start</string>
+
+    <!--Ok dialog helper-->
+    <string name="ok">Ok</string>
+
+    <!--Word checker-->
+    <string name="Search">Search</string>
+
+</resources>
