@@ -2,6 +2,7 @@ package rapticon.tk.scrabble.view;
 
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,7 @@ public class WordChecker extends Fragment {
     private Toolbar toolbar;
     private ImageView settingsImageView;
     private Button searchButton;
+    private ProgressDialog dialog;
 
     @Nullable
     @Override
@@ -111,6 +113,7 @@ public class WordChecker extends Fragment {
     }
 
     private void validateWords(CharSequence text) {
+        dialog = ProgressDialog.show(mActivity, "", "Loading. Please wait...", true);
         wordsList = SharedPreference.getWordList(mActivity);
         isFound = false;
 
@@ -122,9 +125,11 @@ public class WordChecker extends Fragment {
         if (isFound) {
             okDialogHelper = new OkDialogHelper(mActivity, true, "Word Found");
             okDialogHelper.show();
+            dialog.dismiss();
         } else {
             okDialogHelper = new OkDialogHelper(mActivity, true, "Word Not Found");
             okDialogHelper.show();
+            dialog.dismiss();
         }
     }
 }

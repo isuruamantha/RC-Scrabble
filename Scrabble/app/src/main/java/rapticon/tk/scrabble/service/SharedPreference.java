@@ -3,6 +3,7 @@ package rapticon.tk.scrabble.service;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,5 +38,19 @@ public class SharedPreference {
         ArrayList<String> list = new ArrayList<>();
         list.addAll(set);
         return list;
+    }
+
+    public static void setDatabaseCreation(Activity mActivity, Boolean isDatabaseCreated) {
+        sharedPref = mActivity.getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        editor.putString(mActivity.getString(R.string.database), "created");
+        editor.commit();
+    }
+
+    @NonNull
+    public static Boolean getDatabaseCreation(Activity mActivity) {
+        String val = sharedPref.getString(mActivity.getString(R.string.database), "s");
+//        return sharedPref.getString(mActivity.getString(R.string.database), "s");
+        return true;
     }
 }

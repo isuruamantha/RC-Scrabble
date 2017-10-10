@@ -7,13 +7,17 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import rapticon.tk.scrabble.helper.DataHelper;
+import rapticon.tk.scrabble.helper.DatabaseHandler;
+import rapticon.tk.scrabble.model.DataModel;
 import rapticon.tk.scrabble.service.SharedPreference;
 
 public class SplashActivity extends FragmentActivity {
 
     private Activity mActivity;
+    private DatabaseHandler db;
     private final int SPLASH_DISPLAY_LENGTH = 1000;
 
     @Override
@@ -41,6 +45,7 @@ public class SplashActivity extends FragmentActivity {
     private void initializeLayout() {
         mActivity = this;
         saveWordList(mActivity);
+//        addToDabase();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -63,8 +68,14 @@ public class SplashActivity extends FragmentActivity {
     private void saveWordList(Activity mActivity) {
         ArrayList arrayList = DataHelper.GetData(mActivity);
         SharedPreference.setDataWordList(mActivity, arrayList);
-
         SharedPreference.getWordList(mActivity);
+    }
+
+    private void addToDabase() {
+        db = new DatabaseHandler(this);
+        if (SharedPreference.getDatabaseCreation(mActivity))
+            db.addValuesToDatabase(DataHelper.GetData(mActivity));
+        List<DataModel> contacts = db.getAllValues();
     }
 
 }

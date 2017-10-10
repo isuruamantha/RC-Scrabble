@@ -8,6 +8,7 @@
 
     <!--Shared preferences-->
     <string name="sharedPref">sharedPref</string>
+    <string name="database">database</string>
 
     <!--Timer fragment-->
     <string name="pause">Pause</string>
