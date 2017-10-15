@@ -18,8 +18,8 @@ import com.mancj.materialsearchbar.MaterialSearchBar;
 import java.util.ArrayList;
 
 import rapticon.tk.scrabble.R;
+import rapticon.tk.scrabble.helper.DatabaseHandler;
 import rapticon.tk.scrabble.helper.OkDialogHelper;
-import rapticon.tk.scrabble.service.SharedPreference;
 
 /**
  * Created by Isuru Amantha on 10/1/2017.
@@ -37,6 +37,7 @@ public class WordChecker extends Fragment {
     private ImageView settingsImageView;
     private Button searchButton;
     private ProgressDialog dialog;
+    private DatabaseHandler databaseHandler;
 
     @Nullable
     @Override
@@ -69,9 +70,10 @@ public class WordChecker extends Fragment {
      */
     private void initializeLayout() {
         mActivity = getActivity();
+        databaseHandler = new DatabaseHandler(mActivity);
 
         settingsImageView.setVisibility(View.GONE);
-        materialSearchBar.setPlaceHolder("Enter your scrabble");
+        materialSearchBar.setPlaceHolder("Enter your word");
     }
 
     /**
@@ -114,20 +116,16 @@ public class WordChecker extends Fragment {
 
     private void validateWords(CharSequence text) {
         dialog = ProgressDialog.show(mActivity, "", "Loading. Please wait...", true);
-        wordsList = SharedPreference.getWordList(mActivity);
         isFound = false;
 
-        for (int i = 0; i < wordsList.size(); i++) {
-            if (text.toString().toUpperCase().equals(wordsList.get(i)))
-                isFound = true;
-        }
+        isFound = databaseHandler.isWordFound(text.toString().toUpperCase());
 
         if (isFound) {
-            okDialogHelper = new OkDialogHelper(mActivity, true, "Word Found");
+            okDialogHelper = new OkDialogHelper(mActivity, true, "Acceptable");
             okDialogHelper.show();
             dialog.dismiss();
         } else {
-            okDialogHelper = new OkDialogHelper(mActivity, true, "Word Not Found");
+            okDialogHelper = new OkDialogHelper(mActivity, true, "Unacceptable");
             okDialogHelper.show();
             dialog.dismiss();
         }

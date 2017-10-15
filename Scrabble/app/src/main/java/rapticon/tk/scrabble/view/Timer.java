@@ -2,6 +2,8 @@ package rapticon.tk.scrabble.view;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -84,6 +86,10 @@ public class Timer extends Fragment {
         linearLayoutDown.setClickable(false);
         linearLayoutUp.setClickable(false);
         settingsImageView.setVisibility(View.VISIBLE);
+
+        Resources res = mActivity.getResources();
+        final int newColor = res.getColor(R.color.white);
+        settingsImageView.setColorFilter(newColor, PorterDuff.Mode.SRC_ATOP);
 
     }
 

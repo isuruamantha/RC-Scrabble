@@ -44,7 +44,7 @@ public class SplashActivity extends FragmentActivity {
      */
     private void initializeLayout() {
         mActivity = this;
-        saveWordList(mActivity);
+//        saveWordList(mActivity);
 //        addToDabase();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -73,9 +73,7 @@ public class SplashActivity extends FragmentActivity {
 
     private void addToDabase() {
         db = new DatabaseHandler(this);
-        if (SharedPreference.getDatabaseCreation(mActivity))
-            db.addValuesToDatabase(DataHelper.GetData(mActivity));
-        List<DataModel> contacts = db.getAllValues();
+//        List<DataModel> contacts = db.isWordFound();
     }
 
 }

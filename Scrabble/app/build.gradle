@@ -32,5 +32,6 @@ dependencies {
     compile 'com.github.iwgang:countdownview:2.1.6'
     compile 'com.github.rey5137:material:1.2.4'
     compile 'com.google.code.gson:gson:2.8.2'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     testCompile 'junit:junit:4.12'
 }
