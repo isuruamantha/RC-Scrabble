@@ -20,6 +20,9 @@ import android.widget.LinearLayout;
 
 import cn.iwgang.countdownview.CountdownView;
 import rapticon.tk.scrabble.R;
+import rapticon.tk.scrabble.helper.TimerHelper;
+import rapticon.tk.scrabble.model.TimerModel;
+import rapticon.tk.scrabble.service.SharedPreference;
 
 /**
  * Created by Isuru Amantha on 10/1/2017.
@@ -44,6 +47,8 @@ public class Timer extends Fragment {
     private Toolbar toolbar;
     private ImageView settingsImageView;
     private long initialTimerValue = 1800000;
+    private SharedPreference sharedPreference;
+    private TimerHelper timerHelper;
 
     @Nullable
     @Override
@@ -82,6 +87,8 @@ public class Timer extends Fragment {
     private void initializeLayout() {
         mActivity = this.getActivity();
         linearLayoutUp.setClickable(false);
+        sharedPreference = new SharedPreference();
+        timerHelper = TimerHelper.getINSTANCE();
 
         linearLayoutDown.setClickable(false);
         linearLayoutUp.setClickable(false);
@@ -197,4 +204,34 @@ public class Timer extends Fragment {
         getActivity().setTitle("Timer");
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        TimerModel timer = new TimerModel();
+        timer.setCountDownDown(countdownViewDown.getRemainTime());
+        timer.setCountDownUp(countdownViewUp.getRemainTime());
+        timer.setActiveSide(activeSide);
+        timer.setFirstTime(false);
+        timerHelper.timerModel = timer;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        TimerModel timer = new TimerModel();
+        timer = timerHelper.timerModel;
+        if (timer != null) {
+            isFirstTime = timer.isFirstTime();
+            if (timer.getActiveSide().equals("down")) {
+                linearLayoutDown.setClickable(true);
+                countdownViewDown.start(timer.getCountDownDown()); // Millisecond
+            } else {
+                linearLayoutUp.setClickable(true);
+                countdownViewUp.start(timer.getCountDownUp()); // Millisecond
+            }
+        }
+
+    }
+
 }

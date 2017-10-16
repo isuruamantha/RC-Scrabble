@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import rapticon.tk.scrabble.R;
+import rapticon.tk.scrabble.model.TimerModel;
 
 
 public class SharedPreference {
@@ -52,5 +55,22 @@ public class SharedPreference {
         String val = sharedPref.getString(mActivity.getString(R.string.database), "s");
 //        return sharedPref.getString(mActivity.getString(R.string.database), "s");
         return true;
+    }
+
+    public static void setTimerState(Activity mActivity, TimerModel timer) {
+        sharedPref = mActivity.getPreferences(Context.MODE_PRIVATE);
+        editor = sharedPref.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(timer);
+        editor.putString(mActivity.getString(R.string.timerObject), json);
+        editor.commit();
+    }
+
+    public static TimerModel getTimer(Activity mActivity) {
+        sharedPref = mActivity.getPreferences(Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPref.getString(mActivity.getString(R.string.timerObject), null);
+        TimerModel timer = gson.fromJson(json, TimerModel.class);
+        return timer;
     }
 }

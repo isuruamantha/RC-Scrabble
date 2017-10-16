@@ -10,7 +10,7 @@
     <string name="sharedPref">sharedPref</string>
     <string name="database">database</string>
 
-    <!--Timer fragment-->
+    <!--TimerModel fragment-->
     <string name="pause">Pause</string>
     <string name="start">Start</string>
 
@@ -19,5 +19,8 @@
 
     <!--Word checker-->
     <string name="Search">Search</string>
+
+    <!--TimerModel-->
+    <string name="timerObject">timerObject</string>
 
 </resources>
