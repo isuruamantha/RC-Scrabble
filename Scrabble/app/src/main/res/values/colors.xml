@@ -10,4 +10,9 @@
     <color name="veryLightBlack">#2D2920</color>
     <color name="white">#fff</color>
     <color name="black">#000000</color>
+
+    <!--Timer-->
+    <color name="red">#F44336</color>
+
+
 </resources>

@@ -19,9 +19,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import cn.iwgang.countdownview.CountdownView;
+import cn.iwgang.countdownview.DynamicConfig;
 import rapticon.tk.scrabble.R;
 import rapticon.tk.scrabble.helper.TimerHelper;
-import rapticon.tk.scrabble.model.TimerModel;
 import rapticon.tk.scrabble.service.SharedPreference;
 
 /**
@@ -118,6 +118,7 @@ public class Timer extends Fragment {
                     startButton.setText("Pause");
                     if (isFirstTime) {
                         countdownViewDown.start(initialTimerValue); // Millisecond
+                        redTimer(countdownViewDown);
                         linearLayoutDown.setClickable(true);
                         isFirstTime = false;
                         activeSide = "down";
@@ -147,6 +148,8 @@ public class Timer extends Fragment {
                         linearLayoutUp.setClickable(true);
                         isFirstTimeUpperCountdown = false;
                         activeSide = "up";
+                        redTimer(countdownViewUp);
+                        blackTimer(countdownViewDown);
                     } else {
                         countDownDown = countdownViewDown.getRemainTime();
                         countdownViewDown.stop();
@@ -154,6 +157,8 @@ public class Timer extends Fragment {
                         linearLayoutDown.setClickable(false);
                         linearLayoutUp.setClickable(true);
                         activeSide = "up";
+                        redTimer(countdownViewUp);
+                        blackTimer(countdownViewDown);
                     }
                 }
             }
@@ -168,6 +173,8 @@ public class Timer extends Fragment {
                 linearLayoutDown.setClickable(true);
                 linearLayoutUp.setClickable(false);
                 activeSide = "down";
+                redTimer(countdownViewDown);
+                blackTimer(countdownViewUp);
             }
         });
 
@@ -208,30 +215,54 @@ public class Timer extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        TimerModel timer = new TimerModel();
-        timer.setCountDownDown(countdownViewDown.getRemainTime());
-        timer.setCountDownUp(countdownViewUp.getRemainTime());
-        timer.setActiveSide(activeSide);
-        timer.setFirstTime(false);
-        timerHelper.timerModel = timer;
+//        TimerModel timer = new TimerModel();
+//        timer.setCountDownDown(countdownViewDown.getRemainTime());
+//        timer.setCountDownUp(countdownViewUp.getRemainTime());
+//        timer.setActiveSide(activeSide);
+//        timer.setFirstTime(false);
+//        timerHelper.timerModel = timer;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        TimerModel timer = new TimerModel();
-        timer = timerHelper.timerModel;
-        if (timer != null) {
-            isFirstTime = timer.isFirstTime();
-            if (timer.getActiveSide().equals("down")) {
-                linearLayoutDown.setClickable(true);
-                countdownViewDown.start(timer.getCountDownDown()); // Millisecond
-            } else {
-                linearLayoutUp.setClickable(true);
-                countdownViewUp.start(timer.getCountDownUp()); // Millisecond
-            }
-        }
+//        TimerModel timer = new TimerModel();
+//        timer = timerHelper.timerModel;
+//        if (timer != null) {
+//            isFirstTime = timer.isFirstTime();
+//            if (timer.getActiveSide().equals("down")) {
+//                linearLayoutDown.setClickable(true);
+//                countdownViewDown.start(timer.getCountDownDown()); // Millisecond
+//            } else {
+//                linearLayoutUp.setClickable(true);
+//                countdownViewUp.start(timer.getCountDownUp()); // Millisecond
+//            }
+//        }
 
+    }
+
+    /**
+     * To color the timer into red
+     *
+     * @param countdownView
+     */
+    public void redTimer(CountdownView countdownView) {
+        DynamicConfig dynamicConfig = new DynamicConfig.Builder().setTimeTextColor(mActivity.getResources().getColor(R.color.red)).build();
+        DynamicConfig dynamicConfigf = new DynamicConfig.Builder().setSuffixTextColor(mActivity.getResources().getColor(R.color.red)).build();
+        countdownView.dynamicShow(dynamicConfig);
+        countdownView.dynamicShow(dynamicConfigf);
+    }
+
+    /**
+     * To color the timer into black
+     *
+     * @param countdownView
+     */
+    public void blackTimer(CountdownView countdownView) {
+        DynamicConfig dynamicConfig = new DynamicConfig.Builder().setTimeTextColor(mActivity.getResources().getColor(R.color.black)).build();
+        DynamicConfig dynamicConfigf = new DynamicConfig.Builder().setSuffixTextColor(mActivity.getResources().getColor(R.color.black)).build();
+        countdownView.dynamicShow(dynamicConfig);
+        countdownView.dynamicShow(dynamicConfigf);
     }
 
 }

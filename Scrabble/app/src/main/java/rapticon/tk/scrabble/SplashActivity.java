@@ -7,11 +7,9 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import rapticon.tk.scrabble.helper.DataHelper;
 import rapticon.tk.scrabble.helper.DatabaseHandler;
-import rapticon.tk.scrabble.model.DataModel;
 import rapticon.tk.scrabble.service.SharedPreference;
 
 public class SplashActivity extends FragmentActivity {
