@@ -1,16 +1,21 @@
 package rapticon.tk.scrabble.view;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.PorterDuff;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.HapticFeedbackConstants;
 import android.view.LayoutInflater;
+import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -49,6 +54,8 @@ public class Timer extends Fragment {
     private long initialTimerValue = 1800000;
     private SharedPreference sharedPreference;
     private TimerHelper timerHelper;
+    private MediaPlayer mp;
+    private Vibrator vibe;
 
     @Nullable
     @Override
@@ -98,6 +105,9 @@ public class Timer extends Fragment {
         final int newColor = res.getColor(R.color.white);
         settingsImageView.setColorFilter(newColor, PorterDuff.Mode.SRC_ATOP);
 
+        mp = MediaPlayer.create(mActivity, R.raw.tap_sound);
+        vibe = (Vibrator) mActivity.getSystemService(Context.VIBRATOR_SERVICE);
+
     }
 
     /**
@@ -108,6 +118,7 @@ public class Timer extends Fragment {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if (startButton.getText().toString().equals("Pause")) {
                     countDownUp = countdownViewUp.getRemainTime();
                     countDownDown = countdownViewDown.getRemainTime();
@@ -138,7 +149,8 @@ public class Timer extends Fragment {
         linearLayoutDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mp.start();
+                vibe.vibrate(800);
                 if (!isFirstTime) {
                     if (isFirstTimeUpperCountdown) {
                         countDownDown = countdownViewDown.getRemainTime();
@@ -167,6 +179,8 @@ public class Timer extends Fragment {
         linearLayoutUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mp.start();
+                vibe.vibrate(800);
                 countDownUp = countdownViewUp.getRemainTime();
                 countdownViewUp.stop();
                 countdownViewDown.start(countDownDown);
@@ -247,8 +261,8 @@ public class Timer extends Fragment {
      * @param countdownView
      */
     public void redTimer(CountdownView countdownView) {
-        DynamicConfig dynamicConfig = new DynamicConfig.Builder().setTimeTextColor(mActivity.getResources().getColor(R.color.red)).build();
-        DynamicConfig dynamicConfigf = new DynamicConfig.Builder().setSuffixTextColor(mActivity.getResources().getColor(R.color.red)).build();
+        DynamicConfig dynamicConfig = new DynamicConfig.Builder().setTimeTextColor(mActivity.getResources().getColor(R.color.green)).build();
+        DynamicConfig dynamicConfigf = new DynamicConfig.Builder().setSuffixTextColor(mActivity.getResources().getColor(R.color.green)).build();
         countdownView.dynamicShow(dynamicConfig);
         countdownView.dynamicShow(dynamicConfigf);
     }
