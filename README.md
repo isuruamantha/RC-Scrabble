@@ -13,4 +13,5 @@ CSW 2015 word list (2 letter to 15 letter)
 - Fastest word finder
 
 
+ The app can found on Google Play. The corresponding link is:
  [Google Play Link](https://play.google.com/store/apps/details?id=rapticon.tk.scrabble "Google Play Link")
